@@ -1,2 +1,5 @@
-#TODO
-- git commit and push hook, pre-commit is configured but doesn't seem to work
+# Template for a React / redux application
+## Current features
+- Webpack build and watch for javascript, SASS, and CSS
+- Server-side rendering
+- Modules

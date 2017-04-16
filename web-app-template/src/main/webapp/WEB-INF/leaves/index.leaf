@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="head"></head>
+
+<body>
+
+    <div th:include="menu" ></div>
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1>Home of Registration UI spike</h1>
+
+            <p>Welcome to registration UI spike.</p>
+
+            <p>Thank for visiting, bye bye now.</p>
+
+            <p>
+                <a id="firstId" class="btn btn-lg btn-primary" href="#" role="button">Come on... click me :)</a>
+            </p>
+        </div>
+
+    </div>
+
+    <div th:include="footer"></div>
+
+</body>
+</html>

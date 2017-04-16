@@ -7,6 +7,12 @@ const getTestMeta = createSelector(
   ({ testMeta }) => testMeta
 );
 
+const getToggles = createSelector(
+  getRootSelector,
+  ({ toggles }) => toggles
+);
+
 module.exports = {
   getTestMeta,
+  getToggles,
 };

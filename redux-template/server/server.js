@@ -4,6 +4,7 @@ import qs from 'qs';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
+import _ from 'lodash';
 
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
@@ -33,7 +34,7 @@ function renderFullPage(html, preloadedState) {
 
 function handleRender(req, res) {
   const params = qs.parse(req.query);
-  const preloadedState = { meta: { toggles: params.toggles || [] } }; // TODO add namespace
+  const preloadedState = { meta: { toggles: _.compact(params.toggles) || [] } }; // TODO add namespace
   const store = configureStore(preloadedState);
   const html = renderToString(<Provider store={store}><App /></Provider>);
   res.send(renderFullPage(html, store.getState()));

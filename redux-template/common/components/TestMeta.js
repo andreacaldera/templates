@@ -6,7 +6,6 @@ import _ from 'lodash';
 import meta from '../modules/meta';
 
 const TestMeta = ({ testMeta, setTestMeta, saveTestMeta, toggles }) => {
-  // TODO remove null / empty values from toggles
   const toggleList = _.isEmpty(toggles) ?
     (<p>No toggles selected</p>) :
     (<div>
@@ -30,7 +29,7 @@ const TestMeta = ({ testMeta, setTestMeta, saveTestMeta, toggles }) => {
 };
 
 TestMeta.propTypes = {
-  toggles: PropTypes.array.isRequired,
+  toggles: PropTypes.arrayOf(PropTypes.string).isRequired,
   setTestMeta: PropTypes.func.isRequired,
   testMeta: PropTypes.string.isRequired,
   saveTestMeta: PropTypes.func.isRequired,

@@ -1,4 +1,5 @@
 import Express from 'express';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import qs from 'qs';
 import React from 'react';
@@ -6,6 +7,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
 
+import { NAMESPACE } from '../common/modules/constants';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
 
@@ -32,16 +34,26 @@ function renderFullPage(html, preloadedState) {
     `;
 }
 
-function handleRender(req, res) {
+function getActiveFeatureToggles(req) {
   const params = qs.parse(req.query);
-  const preloadedState = { meta: { toggles: _.compact(params.toggles) || [] } }; // TODO add namespace
+  const activeFeatureToggles = (params['feature-toggles'] !== undefined ?
+    _.compact(params['feature-toggles']) :
+    req.cookies.featureToggles);
+  return activeFeatureToggles || [];
+}
+
+function handleRender(req, res) {
+  const activeFeatureToggles = getActiveFeatureToggles(req);
+  res.cookie('featureToggles', activeFeatureToggles);
+  const preloadedState = { [NAMESPACE]: { meta: { featureToggles: activeFeatureToggles } } };
   const store = configureStore(preloadedState);
   const html = renderToString(<Provider store={store}><App /></Provider>);
   res.send(renderFullPage(html, store.getState()));
 }
 
+app.use(cookieParser());
+// app.use(favicon(path.join(__dirname, '../favicon.ico')))
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
-
 app.use(handleRender);
 
 app.listen(port, (error) => {

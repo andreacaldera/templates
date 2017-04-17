@@ -1,18 +1,23 @@
-const { createSelector } = require('reselect');
+import { createSelector } from 'reselect';
 
-const getRootSelector = (state) => state.meta; // TODO add namespace
+import { getRootSelector } from '../selectors';
+
+const getModuleSelector = createSelector(
+  getRootSelector,
+  ({ meta }) => meta
+);
 
 const getTestMeta = createSelector(
-  getRootSelector,
+  getModuleSelector,
   ({ testMeta }) => testMeta
 );
 
-const getToggles = createSelector(
-  getRootSelector,
-  ({ toggles }) => toggles
+const getFeatureToggles = createSelector(
+  getModuleSelector,
+  ({ featureToggles }) => featureToggles
 );
 
 module.exports = {
   getTestMeta,
-  getToggles,
+  getFeatureToggles,
 };

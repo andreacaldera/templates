@@ -9,10 +9,11 @@
     "test": "echo 'No test yet'",
     "build": "NODE_ENV=production webpack -p",
     "watch": "NODE_ENV=production webpack -p --watch",
-    "npm-check": "npm-check -u"
+    "npm-check": "npm-check -u",
+    "foo": "echo \"fooo\" && exit 1"
   },
   "pre-commit": [
-    "lint"
+    "foo"
   ],
   "repository": {
     "type": "git",

@@ -10,11 +10,9 @@
     "build": "NODE_ENV=production webpack -p",
     "watch": "NODE_ENV=production webpack -p --watch",
     "npm-check": "npm-check -u",
-    "precommit": "yarn lint"
+    "precommit": "yarn lint",
+    "precommit": "yarn test"
   },
-  "pre-commit": [
-    "foo"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andreacaldera/template/redux-template"

@@ -11,9 +11,12 @@ const testMeta = (state = 'initial value', action) => {
   }
 };
 
+const page = (state = []) => state;
+
 const featureToggles = (state = []) => state;
 
 module.exports = combineReducers({
   testMeta,
   featureToggles,
+  page,
 });

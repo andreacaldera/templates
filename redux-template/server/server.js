@@ -11,6 +11,8 @@ import { NAMESPACE } from '../common/modules/constants';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
 
+const UI_ROUTES = ['/', '/page1', '/test'];
+
 const app = new Express();
 const port = 3001;
 
@@ -49,7 +51,8 @@ function getActiveFeatureToggles(req) {
 function handleRender(req, res) {
   const activeFeatureToggles = getActiveFeatureToggles(req);
   res.cookie('featureToggles', activeFeatureToggles);
-  const preloadedState = { [NAMESPACE]: { meta: { featureToggles: activeFeatureToggles } } };
+  const page = UI_ROUTES.includes(req.path) ? req.path : '';
+  const preloadedState = { [NAMESPACE]: { meta: { featureToggles: activeFeatureToggles, page } } };
   const store = configureStore(preloadedState);
   const html = renderToString(<Provider store={store}><App /></Provider>);
   res.send(renderFullPage(html, store.getState()));

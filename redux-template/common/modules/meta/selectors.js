@@ -17,7 +17,13 @@ const getFeatureToggles = createSelector(
   ({ featureToggles }) => featureToggles
 );
 
+const getPage = createSelector(
+  getModuleSelector,
+  ({ page }) => page
+);
+
 module.exports = {
   getTestMeta,
   getFeatureToggles,
+  getPage,
 };

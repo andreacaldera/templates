@@ -1430,6 +1430,10 @@ deep-diff@0.3.4:
   version "0.3.4"
   resolved "http://npm.tescloud.com/deep-diff/-/deep-diff-0.3.4.tgz#aac5c39952236abe5f037a2349060ba01b00ae48"
 
+deep-equal@~0.0.0:
+  version "0.0.0"
+  resolved "http://npm.tescloud.com/deep-equal/-/deep-equal-0.0.0.tgz#99679d3bbd047156fcd450d3d01eeb9068691e83"
+
 deep-extend@~0.4.0:
   version "0.4.1"
   resolved "http://npm.tescloud.com/deep-extend/-/deep-extend-0.4.1.tgz#efe4113d08085f4e6f9687759810f807469e2253"
@@ -1448,6 +1452,10 @@ define-properties@^1.1.2:
 defined@^1.0.0:
   version "1.0.0"
   resolved "http://npm.tescloud.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
+
+defined@~0.0.0:
+  version "0.0.0"
+  resolved "http://npm.tescloud.com/defined/-/defined-0.0.0.tgz#f35eea7d705e933baf13b2f03b3f83d921403b3e"
 
 del@^2.0.2:
   version "2.2.2"
@@ -2303,6 +2311,13 @@ global@^4.3.0:
     min-document "^2.19.0"
     process "~0.5.1"
 
+global@~2.0.7:
+  version "2.0.7"
+  resolved "http://npm.tescloud.com/global/-/global-2.0.7.tgz#d43a9c3d1ec7915f645d8e0eb0ac60010e9e06cd"
+  dependencies:
+    min-document "~0.2.2"
+    process "~0.5.1"
+
 globals@^9.0.0, globals@^9.14.0:
   version "9.17.0"
   resolved "http://npm.tescloud.com/globals/-/globals-9.17.0.tgz#0c0ca696d9b9bb694d2e5470bd37777caad50286"
@@ -2480,6 +2495,12 @@ hosted-git-info@^2.1.4:
 html-comment-regex@^1.1.0:
   version "1.1.1"
   resolved "http://npm.tescloud.com/html-comment-regex/-/html-comment-regex-1.1.1.tgz#668b93776eaae55ebde8f3ad464b307a4963625e"
+
+html5-history@^0.1.5:
+  version "0.1.5"
+  resolved "http://npm.tescloud.com/html5-history/-/html5-history-0.1.5.tgz#da5de0605b7304011e0b1788c6d2c052277d8a84"
+  dependencies:
+    global "~2.0.7"
 
 http-errors@~1.6.1:
   version "1.6.1"
@@ -3250,6 +3271,12 @@ min-document@^2.19.0:
   resolved "http://npm.tescloud.com/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
   dependencies:
     dom-walk "^0.1.0"
+
+min-document@~0.2.2:
+  version "0.2.8"
+  resolved "http://npm.tescloud.com/min-document/-/min-document-0.2.8.tgz#f3620cf5603611155cb9416d0ab5576b16d53de3"
+  dependencies:
+    tape "~1.0.2"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
@@ -4885,6 +4912,15 @@ tapable@^0.2.5, tapable@~0.2.5:
   version "0.2.6"
   resolved "http://npm.tescloud.com/tapable/-/tapable-0.2.6.tgz#206be8e188860b514425375e6f1ae89bfb01fd8d"
 
+tape@~1.0.2:
+  version "1.0.4"
+  resolved "http://npm.tescloud.com/tape/-/tape-1.0.4.tgz#e2e8e5c6dd3f00fdc2a5e4514f62fc221e59f9c4"
+  dependencies:
+    deep-equal "~0.0.0"
+    defined "~0.0.0"
+    jsonify "~0.0.0"
+    through "~2.3.4"
+
 tar-pack@^3.4.0:
   version "3.4.0"
   resolved "http://npm.tescloud.com/tar-pack/-/tar-pack-3.4.0.tgz#23be2d7f671a8339376cbdb0b8fe3fdebf317984"
@@ -4914,7 +4950,7 @@ throat@^2.0.2:
   version "2.0.2"
   resolved "http://npm.tescloud.com/throat/-/throat-2.0.2.tgz#a9fce808b69e133a632590780f342c30a6249b02"
 
-through@2, through@^2.3.6, through@~2.3, through@~2.3.1:
+through@2, through@^2.3.6, through@~2.3, through@~2.3.1, through@~2.3.4:
   version "2.3.8"
   resolved "http://npm.tescloud.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 

@@ -1,4 +1,4 @@
 import { connect } from 'react-redux';
-import TestMeta from '../components/TestMeta';
+import App from '../components/App';
 
-export default connect()(TestMeta);
+export default connect()(App);

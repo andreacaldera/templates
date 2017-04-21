@@ -20,6 +20,8 @@ function renderFullPage(html, preloadedState) {
     <html>
       <head>
         <link rel="stylesheet" type="text/css" href="http://localhost:3001/dist/reduxTemplate.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <title>Redux Template</title>
       </head>
       <body>
@@ -28,6 +30,8 @@ function renderFullPage(html, preloadedState) {
         <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}
         </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="http://localhost:3001/dist/reduxTemplate.js"></script>
       </body>
     </html>
@@ -51,9 +55,14 @@ function handleRender(req, res) {
   res.send(renderFullPage(html, store.getState()));
 }
 
+function handleApi(req, res) {
+  res.send({ response: 'Test response' });
+}
+
 app.use(cookieParser());
 // app.use(favicon(path.join(__dirname, '../favicon.ico')))
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
+app.use('/api/', handleApi);
 app.use(handleRender);
 
 app.listen(port, (error) => {

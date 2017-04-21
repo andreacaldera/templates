@@ -5,6 +5,10 @@ import _ from 'lodash';
 
 import meta from '../modules/meta';
 
+import TimerComponent from './Timer';
+
+const Timer = React.createFactory(TimerComponent);
+
 const TestMeta = ({ testMeta, setTestMeta, saveTestMeta, featureToggles }) => {
   const toggleList = _.isEmpty(featureToggles) ?
     (<p>No feature toggle selected, use ?feature-toggle[]=your-feature-toggle to enable feature toggles</p>) :
@@ -17,7 +21,7 @@ const TestMeta = ({ testMeta, setTestMeta, saveTestMeta, featureToggles }) => {
   return (
     <div>
       {toggleList}
-      <form onSubmit={setTestMeta}>
+      <form>
         <div>
           <label htmlFor="testMeta">Test meta</label>
           <input name="testMeta" placeholder="testMeta" onBlur={setTestMeta} />
@@ -25,6 +29,7 @@ const TestMeta = ({ testMeta, setTestMeta, saveTestMeta, featureToggles }) => {
         <button onClick={saveTestMeta}>Set test meta</button>
         <div>{testMeta}</div>
       </form>
+      {Timer()}
     </div>);
 };
 
@@ -44,8 +49,9 @@ const mapDispatchToProps = (dispatch) => ({
   setTestMeta(e) {
     dispatch(meta.setTestMeta(e.target.value));
   },
-  saveTestMeta() {
-    throw new Error('No implemented yet!');
+  saveTestMeta(e) {
+    e.preventDefault();
+    dispatch(meta.submit());
   },
 });
 

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import meta from './meta';
 import timer from './timer';
 
@@ -9,4 +10,4 @@ const rootReducer = combineReducers({
   timer,
 });
 
-module.exports = combineReducers({ [NAMESPACE]: rootReducer });
+module.exports = combineReducers({ routing: routerReducer, [NAMESPACE]: rootReducer });

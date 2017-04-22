@@ -1,17 +1,27 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import rootReducer from '../modules';
 
+import reducer from '../modules';
 import actionMiddleware from '../middleware';
 
-const configureStore = (preloadedState) => {
+const configureStore = (history, initialState) => {
   const store = createStore(
-    rootReducer,
-    preloadedState,
-    applyMiddleware(thunk, createLogger, actionMiddleware)
+    reducer,
+    initialState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history),
+        thunk,
+        createLogger,
+        actionMiddleware,
+      ),
+    )
   );
+
   return store;
 };
+
 
 export default configureStore;

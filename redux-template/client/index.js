@@ -1,11 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
+
 import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+
 import configureStore from '../common/store/configureStore';
-import App from '../common/containers/App';
+import routes from '../common/routes';
 
-const preloadedState = window.__PRELOADED_STATE__;
-const store = configureStore(preloadedState);
+const store = configureStore(browserHistory, window.__initialState__);
+const history = syncHistoryWithStore(browserHistory, store);
 
-// eslint-disable-next-line react/jsx-filename-extension
-render(<Provider store={store}><App /></Provider>, document.getElementById('app'));
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
+);

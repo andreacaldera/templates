@@ -47,7 +47,7 @@ function renderFullPage(content, store) {
     `;
 }
 
-app.use('/dist', Express.static(path.join(__dirname, '../dist')));
+app.use('/dist', Express.static(path.join(__dirname, '../../dist')));
 
 app.use((req, res) => {
   const activeFeatureToggles = getActiveFeatureToggles(req);

@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "A redux template",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
+    "start": "node src/erver/index.js",
+    "dev": "nodemon src/server/index.js",
     "lint": "eslint .",
     "test": "echo 'No test yet'",
     "build": "NODE_ENV=production webpack -p",

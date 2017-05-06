@@ -2,7 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    reduxTemplate: ['./client/index.js', './style/ReduxTemplate.scss'],
+    reduxTemplate: ['./src/client/index.js', './style/ReduxTemplate.scss'],
   },
   output: {
     filename: 'dist/[name].js',

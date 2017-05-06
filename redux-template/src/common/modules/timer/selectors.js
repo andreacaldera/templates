@@ -1,24 +1,19 @@
 import { createSelector } from 'reselect';
 
-import { getRootSelector } from '../selectors';
-
-const getModuleSelector = createSelector(
-  getRootSelector,
-  ({ timer }) => timer
-);
+import { getTimereSelector } from '../selectors';
 
 const getConfig = createSelector(
-  getModuleSelector,
+  getTimereSelector,
   ({ config }) => config
 );
 
 const getStatus = createSelector(
-  getModuleSelector,
+  getTimereSelector,
   ({ status }) => status
 );
 
 const getRemaining = createSelector(
-  getModuleSelector,
+  getTimereSelector,
   ({ remaining }) => remaining
 );
 

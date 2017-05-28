@@ -1,21 +1,15 @@
+import { put } from 'redux-saga/effects';
+
 import { SET_TEST_META, SUBMITTING, SUBMITTED } from './constants';
 
-const setTestMeta = (value) => ({
-  type: SET_TEST_META,
-  payload: value,
-});
+export function* setTestMeta(value) {
+  yield put(SET_TEST_META, value);
+}
 
-const submit = () => ({
-  type: SUBMITTING,
-});
+export function* submit() {
+  yield put(SUBMITTING);
+}
 
-const submitted = (payload) => ({
-  type: SUBMITTED,
-  payload,
-});
-
-module.exports = {
-  setTestMeta,
-  submit,
-  submitted,
-};
+export function* submitted(payload) {
+  yield put(SUBMITTED, payload);
+}

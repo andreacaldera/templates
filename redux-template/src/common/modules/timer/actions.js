@@ -1,20 +1,15 @@
+import { put } from 'redux-saga/effects';
+
 import { START, STOP, SET_REMAINING } from './constants';
 
-const start = () => ({
-  type: START,
-});
+export function* start() {
+  yield put({ type: START });
+}
 
-const stop = () => ({
-  type: STOP,
-});
+export function* stop() {
+  yield put({ type: STOP });
+}
 
-const setRemaining = (payload) => ({
-  type: SET_REMAINING,
-  payload,
-});
-
-module.exports = {
-  start,
-  stop,
-  setRemaining,
-};
+export function* setRemaining(payload) {
+  yield put({ type: SET_REMAINING, payload });
+}

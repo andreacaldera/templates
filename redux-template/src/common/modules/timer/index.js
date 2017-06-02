@@ -5,6 +5,8 @@ import constants from './constants';
 import actions from './actions';
 import selectors from './selectors';
 
+console.log('actions', actions);
+
 const moduleProps = Object.assign({}, actions, selectors, constants);
 
 _.forEach(moduleProps, (prop, propName) => { rootReducer[propName] = prop; });

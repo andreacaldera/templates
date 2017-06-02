@@ -9,9 +9,10 @@ import qs from 'qs';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import configureStore from '../common/store/configureStore';
+import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
 import { NAMESPACE } from '../common/modules/constants';
+import api from './api';
 
 const app = Express();
 const port = 3001;
@@ -48,6 +49,8 @@ function renderFullPage(content, store) {
 }
 
 app.use('/dist', Express.static(path.join(__dirname, '../../dist')));
+
+app.use('/api', api());
 
 app.use((req, res) => {
   const activeFeatureToggles = getActiveFeatureToggles(req);

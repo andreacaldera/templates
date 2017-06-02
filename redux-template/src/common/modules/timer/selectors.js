@@ -12,13 +12,7 @@ const getStatus = createSelector(
   ({ status }) => status
 );
 
-const getRemaining = createSelector(
-  getTimereSelector,
-  ({ remaining }) => remaining
-);
-
 module.exports = {
   getConfig,
   getStatus,
-  getRemaining,
 };

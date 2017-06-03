@@ -2,6 +2,7 @@ import { delay } from 'redux-saga';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import timerSagas from './timer/sagas';
+import politicsSagas from './politics/sagas';
 
 export function* startSaga() {
   // console.log('Now running sagas!');
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     startSaga(),
     watchActions(),
     timerSagas.map((saga) => saga()),
+    politicsSagas.map((saga) => saga()),
   ];
 }

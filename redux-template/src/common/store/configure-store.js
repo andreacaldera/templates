@@ -5,7 +5,6 @@ import createSagaMiddleware from 'redux-saga';
 
 import reducer from '../modules';
 import sagas from '../modules/sagas';
-import actionMiddleware from '../middleware';
 
 const configureStore = (history, initialState) => {
   const sagaMiddleware = createSagaMiddleware();
@@ -17,7 +16,6 @@ const configureStore = (history, initialState) => {
         routerMiddleware(history),
         sagaMiddleware,
         createLogger,
-        actionMiddleware,
       ),
     )
   );

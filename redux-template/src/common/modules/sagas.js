@@ -1,7 +1,7 @@
 import { delay } from 'redux-saga';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { START, STOP } from './timer/constants';
+import timerSagas from './timer/sagas';
 
 export function* startSaga() {
   // console.log('Now running sagas!');
@@ -18,20 +18,10 @@ export function* watchActions() {
   yield takeEvery('*', watchAction);
 }
 
-/** TODO AC 02/06 move to timer module **/
-export function* start() {
-  yield call(delay, 5000);
-  yield put({ type: STOP });
-}
-
-export function* watchStart() {
-  yield takeLatest(START, start);
-}
-
 export default function* rootSaga() {
   yield [
     startSaga(),
     watchActions(),
-    watchStart(),
+    timerSagas.map((saga) => saga()),
   ];
 }

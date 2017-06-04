@@ -1,16 +1,17 @@
 
-import { select, put, takeLatest, takeEvery, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { select, put, takeLatest, takeEvery, call, race } from 'redux-saga/effects';
 
-import { LISTEN_SPEECH, SPEECH, VOTE, VOTE_CASTED } from './constants';
+import { LISTEN_SPEECH, SPEECH, VOTE, VOTE_CASTED, VOTE_ERROR } from './constants';
 import { getPolitician } from './selectors';
 
-const getSpeech = (politician) =>
-  fetch(`/api/${politician}`)
+const callSpeechApi = (politician) =>
+  fetch(`/api/speech/${politician}`)
     .then((response) => response.json());
 
 export function* listenSpeech() {
   const politician = yield select(getPolitician);
-  const speech = yield call(getSpeech, politician);
+  const speech = yield call(callSpeechApi, politician);
   yield put({ type: SPEECH, speech: speech.message });
 }
 
@@ -18,14 +19,34 @@ export function* watchListenSpeech() {
   yield takeLatest(LISTEN_SPEECH, listenSpeech);
 }
 
-const doVote = (politician) =>
-  fetch(`/api/${politician}`, { method: 'POST' })
-    .then((response) => response.json());
+const callVoteApi = (politician) =>
+  fetch(`/api/vote/${politician}`, { method: 'POST' })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json()
+          .then((json) => {
+            throw new Error(`An error occured whilst voting for politician ${politician}: ${json.error}`);
+          });
+      }
+      return response.json();
+    });
 
 export function* vote() {
+  yield put({ type: VOTE_ERROR, error: null });
   const politician = yield select(getPolitician);
-  yield call(doVote, politician);
-  yield put({ type: VOTE_CASTED, politician });
+  try {
+    const apiResult = yield race({
+      result: call(callVoteApi, politician),
+      timeout: call(delay, 2000),
+
+    });
+    if (apiResult.timeout) {
+      throw new Error('Unable to vote, timeout error');
+    }
+    yield put({ type: VOTE_CASTED, politician });
+  } catch (error) {
+    yield put({ type: VOTE_ERROR, error: error.message });
+  }
 }
 
 export function* watchVote() {

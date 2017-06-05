@@ -19,6 +19,9 @@ const App = ({ children }) => (
             <Link className="nav-link" to="/timer">TImer</Link>
           </li>
           <li className="nav-item">
+            <Link className="nav-link" to="/politics">Politics</Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/about">About</Link>
           </li>
           <li className="nav-item">

@@ -2,22 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import meta from '../modules/meta';
+import FeatureTogglesComponent from './FeatureToggles';
 
-const Home = ({ testMeta }) =>
+const FeatureToggles = React.createFactory(FeatureTogglesComponent);
+
+const Home = () =>
 (<div>
-  <h2>Home: {testMeta}</h2>
+  <h2>Home</h2>
+  {FeatureToggles()}
 </div>);
 
 Home.propTypes = {
   testMeta: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  testMeta: meta.getTestMeta(state),
-});
-
-const mapDispatchToProps = (/* dispatch */) => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect()(Home);

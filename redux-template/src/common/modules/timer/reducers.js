@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { START, STOP, SET_REMAINING } from './constants';
+import { START, STOP, REMAINING } from './constants';
 
 const config = (state = { duration: 5 }) => state;
 
@@ -16,12 +16,11 @@ const status = (state = 'not started yet', action) => {
 
 const remaining = (state = 0, action) => {
   switch (action.type) {
-    case SET_REMAINING:
-      return Math.round(Math.max(0, action.payload) / 1000);
+    case REMAINING:
+      return Math.round(Math.max(0, action.remaining) / 1000);
     default: return state;
   }
 };
-
 
 module.exports = combineReducers({
   status,

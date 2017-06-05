@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import timer from '../modules/timer';
+import { START, STOP } from '../modules/timer/constants';
 
 const Timer = ({ config, status, start, stop, remaining }) =>
   (<div>
@@ -31,11 +32,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   start(e) {
     e.preventDefault();
-    dispatch(timer.start());
+    dispatch({ type: START });
   },
   stop(e) {
     e.preventDefault();
-    dispatch(timer.stop());
+    dispatch({ type: STOP });
   },
 });
 

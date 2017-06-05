@@ -13,8 +13,15 @@ const getTimereSelector = createSelector(
   ({ timer }) => timer
 );
 
+const getPoliticsSelector = createSelector(
+  getRootSelector,
+  ({ politics }) => politics
+);
+
+
 module.exports = {
   getRootSelector,
   getMetaSelector,
   getTimereSelector,
+  getPoliticsSelector,
 };

@@ -30,6 +30,10 @@ const votes = (state = {}, action) => {
       const politicialVotes = (state[action.politician] || 0) + 1;
       return Object.assign({}, state, { [action.politician]: politicialVotes });
     }
+    case VOTE_ERROR: {
+      const politicialVotes = (state[action.politician] || 0) - 1;
+      return Object.assign({}, state, { [action.politician]: politicialVotes });
+    }
     default: return state;
   }
 };

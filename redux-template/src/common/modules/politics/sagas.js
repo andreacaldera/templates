@@ -34,6 +34,7 @@ const callVoteApi = (politician) =>
 export function* vote() {
   yield put({ type: VOTE_ERROR, error: null });
   const politician = yield select(getPolitician);
+  yield put({ type: VOTE_CASTED, politician });
   try {
     const apiResult = yield race({
       result: call(callVoteApi, politician),
@@ -43,9 +44,8 @@ export function* vote() {
     if (apiResult.timeout) {
       throw new Error('Unable to vote, timeout error');
     }
-    yield put({ type: VOTE_CASTED, politician });
   } catch (error) {
-    yield put({ type: VOTE_ERROR, error: error.message });
+    yield put({ type: VOTE_ERROR, error: error.message, politician });
   }
 }
 

@@ -24,13 +24,16 @@ const Politics = ({ listenSpeech, vote, politicianVotes, politician, speech, vot
       <h1>Politics, what a fun game!</h1>
       <form>
         {voteErrorComponent}
-        <select name="politicial-speech" onChange={onPoliticialSelect} defaultValue="">
-          <option value="">Select one politician...</option>
-          <option value="jeremy-corbyn">Jeremy Corbyn</option>
-          <option value="theresa-may">Theresa May</option>
-        </select>
-        <input type="submit" value="Listen" onClick={listenSpeech} />
-        <input type="submit" value="Vote" onClick={vote} />
+        <div className="form-group">
+          <label htmlFor="politician">Politician</label>
+          <select className="form-control" id="politician" name="politicial-speech" onChange={onPoliticialSelect} defaultValue="">
+            <option value="">Select one politician...</option>
+            <option value="jeremy-corbyn">Jeremy Corbyn</option>
+            <option value="theresa-may">Theresa May</option>
+          </select>
+        </div>
+        <input className="btn btn-primary speech" type="submit" value="Listen" onClick={listenSpeech} />
+        <input className="btn btn-primary vote" type="submit" value="Vote" onClick={vote} />
       </form>
       {speechComponent}
       {votesComponent}

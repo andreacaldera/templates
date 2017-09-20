@@ -1,5 +1,4 @@
 module.exports = {
-    methodOne: function() {
-        return 'method-one';
-    }
-}
+  methodOne: () => 'method-one',
+  promiseOne: () => Promise.resolve('promise one'),
+};

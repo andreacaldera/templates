@@ -45,7 +45,7 @@ Politics.propTypes = {
   speech: PropTypes.string,
   listenSpeech: PropTypes.func.isRequired,
   vote: PropTypes.func.isRequired,
-  voteError: PropTypes.string.isRequired,
+  voteError: PropTypes.string,
   politicianVotes: PropTypes.number,
   onPoliticialSelect: PropTypes.func.isRequired,
 };

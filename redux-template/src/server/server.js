@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import qs from 'qs';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import UrlPatter from 'url-pattern';
 
 import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
@@ -16,6 +17,8 @@ import api from './api';
 
 const app = Express();
 const port = 3001;
+
+const urlPattern = new UrlPatter('/:activePage');
 
 app.use(cookieParser());
 
@@ -53,9 +56,10 @@ app.use('/dist', Express.static(path.join(__dirname, '../../dist')));
 app.use('/api', api());
 
 app.use((req, res) => {
+  const activePage = _.get(urlPattern.match(req.url), 'activePage', 'home');
   const activeFeatureToggles = getActiveFeatureToggles(req);
   res.cookie('featureToggles', activeFeatureToggles);
-  const preloadedState = { [NAMESPACE]: { meta: { featureToggles: activeFeatureToggles } } };
+  const preloadedState = { [NAMESPACE]: { meta: { activePage, featureToggles: activeFeatureToggles } } };
   const memoryHistory = createMemoryHistory(req.url);
   const store = configureStore(memoryHistory, preloadedState);
   const history = syncHistoryWithStore(memoryHistory, store);

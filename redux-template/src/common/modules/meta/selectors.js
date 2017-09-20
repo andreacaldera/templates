@@ -2,17 +2,17 @@ import { createSelector } from 'reselect';
 
 import { getMetaSelector } from '../selectors';
 
-const getTestMeta = createSelector(
-  getMetaSelector,
-  ({ testMeta }) => testMeta
-);
-
 const getFeatureToggles = createSelector(
   getMetaSelector,
   ({ featureToggles }) => featureToggles
 );
 
+const getActivePage = createSelector(
+  getMetaSelector,
+  ({ activePage }) => activePage
+);
+
 module.exports = {
-  getTestMeta,
+  getActivePage,
   getFeatureToggles,
 };

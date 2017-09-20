@@ -45,7 +45,8 @@
     "redux-logger": "^3.0.1",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.0",
-    "superagent": "^3.6.0"
+    "superagent": "^3.6.0",
+    "url-pattern": "^1.0.3"
   },
   "devDependencies": {
     "arrow-mocha": "^1.0.1",

@@ -6,18 +6,25 @@ import createSagaMiddleware from 'redux-saga';
 import reducer from '../modules';
 import sagas from '../modules/sagas';
 
-const configureStore = (history, initialState) => {
+const configureStore = (history, initialState, useLogger) => {
   const sagaMiddleware = createSagaMiddleware();
+  const router = routerMiddleware(history);
+
+  const middleware = useLogger ?
+    applyMiddleware(
+      router,
+      sagaMiddleware,
+      createLogger
+    ) :
+    applyMiddleware(
+      router,
+      sagaMiddleware,
+    );
+
   const store = createStore(
     reducer,
     initialState,
-    compose(
-      applyMiddleware(
-        routerMiddleware(history),
-        sagaMiddleware,
-        createLogger,
-      ),
-    )
+    compose(middleware)
   );
 
   sagaMiddleware.run(sagas);

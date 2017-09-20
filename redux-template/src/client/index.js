@@ -8,7 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
 
-const store = configureStore(browserHistory, window.__initialState__);
+const store = configureStore(browserHistory, window.__initialState__, true);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

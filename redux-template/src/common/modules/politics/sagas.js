@@ -8,7 +8,9 @@ import { getPolitician } from './selectors';
 
 const callSpeechApi = (politician) =>
   superagent(`/api/speech/${politician}`)
-    .then((response) => response.json());
+    .set('Accept', 'application/json')
+    .timeout({ response: 9000, deadline: 10000 })
+    .then(({ body }) => body);
 
 export function* listenSpeech() {
   const politician = yield select(getPolitician);
@@ -21,23 +23,17 @@ export function* watchListenSpeech() {
 }
 
 const callVoteApi = (politician) =>
-  fetch(`/api/vote/${politician}`, { method: 'POST' })
-    .then((response) => {
-      if (!response.ok) {
-        return response.json()
-          .then((json) => {
-            throw new Error(`An error occured whilst voting for politician ${politician}: ${json.error}`);
-          });
-      }
-      return response.json();
-    });
+  superagent.post(`/api/vote/${politician}`)
+    .set('Accept', 'application/json')
+    .timeout({ response: 9000, deadline: 10000 })
+    .then(({ body }) => body);
 
 export function* vote() {
   yield put({ type: VOTE_ERROR, error: null });
   const politician = yield select(getPolitician);
   yield put({ type: VOTE_CASTED, politician });
   try {
-    // TODO superagent supports timeout, race not necessary here anymore
+    // demo purposes only: superagent already supports timeouts
     const apiResult = yield race({
       result: call(callVoteApi, politician),
       timeout: call(delay, 2000),

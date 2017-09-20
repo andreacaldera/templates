@@ -7,3 +7,9 @@ export default () => {
     methodOne,
   });
 };
+
+export const TEST = 1;
+
+export function methodTwo() {
+  return 'method two';
+}

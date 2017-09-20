@@ -1,12 +1,13 @@
 
 import { delay } from 'redux-saga';
 import { select, put, takeLatest, takeEvery, call, race } from 'redux-saga/effects';
+import superagent from 'superagent';
 
 import { LISTEN_SPEECH, SPEECH, VOTE, VOTE_CASTED, VOTE_ERROR } from './constants';
 import { getPolitician } from './selectors';
 
 const callSpeechApi = (politician) =>
-  fetch(`/api/speech/${politician}`)
+  superagent(`/api/speech/${politician}`)
     .then((response) => response.json());
 
 export function* listenSpeech() {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import template from '../src/template';
+import template from '../../src/template';
 
 describe('Template', () => {
   it('should do something', () => {

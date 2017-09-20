@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import templateFactory from '../src/template-factory';
+import templateFactory from '../../src/template-factory';
 
 describe('Template factory', () => {
   it('should do something', () => {

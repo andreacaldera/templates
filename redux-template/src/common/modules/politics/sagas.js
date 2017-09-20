@@ -37,6 +37,7 @@ export function* vote() {
   const politician = yield select(getPolitician);
   yield put({ type: VOTE_CASTED, politician });
   try {
+    // TODO superagent supports timeout, race not necessary here anymore
     const apiResult = yield race({
       result: call(callVoteApi, politician),
       timeout: call(delay, 2000),

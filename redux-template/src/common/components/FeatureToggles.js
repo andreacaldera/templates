@@ -5,20 +5,20 @@ import _ from 'lodash';
 
 import meta from '../modules/meta';
 
-const FeatureToggles = ({ featureToggles }) => {
-  const toggleList = _.isEmpty(featureToggles) ?
-    (<p>No feature toggle selected, use ?feature-toggle[]=your-feature-toggle to enable feature toggles</p>) :
-    (<div>
-      <p>Active featureToggles:</p>
-      <ul>
-        {featureToggles.map((featureToggle) => (<li key={`${featureToggle}-item`}>{featureToggle}</li>))}
-      </ul>
-    </div>);
-  return (
-    <div>
-      {toggleList}
-    </div>);
-};
+export class FeatureToggles extends React.Component {
+  render() {
+    const toggleList = _.isEmpty(this.props.featureToggles) ?
+      (<p className="t-no-active-features-message">No feature toggle selected, use ?feature-toggle[]=your-feature-toggle to enable feature toggles</p>) :
+      (<div className="t-active-feature-toggles">
+        <p>Active featureToggles:</p>
+        <ul>
+          {this.props.featureToggles.map((featureToggle) => (<li key={`${featureToggle}-item`}>{featureToggle}</li>))}
+        </ul>
+      </div>);
+
+    return (<div>{toggleList}</div>);
+  }
+}
 
 FeatureToggles.propTypes = {
   featureToggles: PropTypes.arrayOf(PropTypes.string).isRequired,

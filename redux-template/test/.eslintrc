@@ -3,7 +3,7 @@
     "mocha": true
   },
   "plugins": [
-    "mocha"
+    "mocha",
   ],
   "rules": {
     "mocha/no-exclusive-tests": 2,

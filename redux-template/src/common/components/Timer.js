@@ -11,8 +11,8 @@ const Timer = ({ config, status, start, stop, remaining }) =>
     <p>Current status is: {status}</p>
     {(status === 'running' && <p>Remaining time: {remaining}</p>)}
     <p>Running for {config.duration} seconds</p>
-    <button onClick={start}>Start</button>
-    <button onClick={stop}>Stop</button>
+    <button className="btn btn-primary" onClick={start}>Start</button>
+    <button className="btn btn-primary ml-1" onClick={stop}>Stop</button>
   </div>);
 
 Timer.propTypes = {

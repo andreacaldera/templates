@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 const About = () =>
   (<div>
-    <h2>About</h2>
+    <h1>About</h1>
+    <p>This is a template web application</p>
   </div>);
 
 export default connect(null, null)(About);

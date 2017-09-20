@@ -24,9 +24,6 @@ const App = ({ children }) => (
           <li className="nav-item">
             <Link className="nav-link" to="/about">About</Link>
           </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" href="/requests">Requests</a>
-          </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input className="form-control mr-sm-2" type="text" placeholder="Search" />

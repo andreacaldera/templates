@@ -33,7 +33,7 @@ const Politics = ({ listenSpeech, vote, politicianVotes, politician, speech, vot
           </select>
         </div>
         <input className="btn btn-primary speech" type="submit" value="Listen" onClick={listenSpeech} />
-        <input className="btn btn-primary vote" type="submit" value="Vote" onClick={vote} />
+        <input className="btn btn-primary vote ml-1" type="submit" value="Vote" onClick={vote} />
       </form>
       {speechComponent}
       {votesComponent}

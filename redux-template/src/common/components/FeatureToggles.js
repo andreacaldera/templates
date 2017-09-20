@@ -11,8 +11,8 @@ export class FeatureToggles extends React.Component {
       (<p className="t-no-active-features-message">No feature toggle selected, use ?feature-toggle[]=your-feature-toggle to enable feature toggles</p>) :
       (<div className="t-active-feature-toggles">
         <p>Active featureToggles:</p>
-        <ul>
-          {this.props.featureToggles.map((featureToggle) => (<li key={`${featureToggle}-item`}>{featureToggle}</li>))}
+        <ul className="list-group">
+          {this.props.featureToggles.map((featureToggle) => (<li className="list-group-item" key={`${featureToggle}-item`}>{featureToggle}</li>))}
         </ul>
       </div>);
 

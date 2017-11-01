@@ -6,9 +6,14 @@ body {
   padding: 3rem 1.5rem;
 }
 
-
 .home__bottom {
   position: fixed;
-  left: 0;
+  right: 0;
   bottom: 0;
+}
+
+.home__page-height-threshold {
+  position: fixed;
+  left: 0;
+  bottom: 100px;
 }

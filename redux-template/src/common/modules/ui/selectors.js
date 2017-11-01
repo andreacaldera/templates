@@ -7,6 +7,12 @@ const getHasReachedPageBottom = createSelector(
   ({ hasReachedPageBottom }) => hasReachedPageBottom
 );
 
+const getHasPassedHeightThreshold = createSelector(
+  getUiSelector,
+  ({ hasPassedHeightThreshold }) => hasPassedHeightThreshold
+);
+
 module.exports = {
   getHasReachedPageBottom,
+  getHasPassedHeightThreshold,
 };

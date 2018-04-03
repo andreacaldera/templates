@@ -1,0 +1,4 @@
+
+    <div id="child-one-app"><div data-reactroot="" data-reactid="1" data-react-checksum="-1172086028"><div data-reactid="2">Hello from mini application one!</div><div class="missing-product" data-reactid="3"><i data-reactid="4">Please selected a product</i></div><button data-reactid="5">I dare you, click me!</button><div data-reactid="6"></div></div></div>
+    <script>window.__APP_ONE_INITIAL_STATE__ = {"routing":{"locationBeforeTransitions":{"pathname":"/products","search":"?portal","hash":"","state":null,"action":"POP","key":"vfycha","query":{"portal":null},"$searchBase":{"search":"?portal","searchBase":""}}},"CHILD_ONE_APP":{"ui":{"hasReachedPageBottom":false,"hasPassedHeightThreshold":false},"product":{"products":{"one":"Product one"},"selectedProductId":null}}}</script>
+  

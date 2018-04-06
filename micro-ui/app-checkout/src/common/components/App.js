@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import { ADD_TO_BAG, REMOVE_FROM_BAG } from '../modules/constants';
 
@@ -23,19 +22,7 @@ class App extends Component {
     const { products, addToBag, productsInBag, selectedProductId } = this.props;
     return (
       <div className="container">
-        <h2>Micro UI product application</h2>
-
-        {products.map((product) => (
-          <div className={`form-group row ${selectedProductId === product.id ? 'product--selected' : ''}`} key={product.name}>
-            <label className="col-10" htmlFor="add-to-bag">{product.name}</label>
-            <div className="col-2">
-              <div className="form-check">
-                <input checked={Boolean(productsInBag.find((id) => id === product.id))} id="add-to-bag" className="form-check-input" type="checkbox" onChange={(e) => addToBag(e, product.id)} />Add to bag
-              </div>
-            </div>
-          </div>
-        ))}
-        <Link className="btn btn-primary" to="/checkout" href="/checkout" onClick={addToBag}>Checkout</Link>
+        <h2>Micro UI checkout application</h2>
       </div>
     );
   }
@@ -52,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({
       type: e.target.checked ? ADD_TO_BAG : REMOVE_FROM_BAG,
       payload: productId,
-      publish: true,
     });
   },
 });

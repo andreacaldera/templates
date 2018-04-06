@@ -51,6 +51,8 @@ function initialiseApp(state) {
   appState.store = store;
   appState.history = history;
 
+  // appState.history.listen(historyChanged);
+
   appState.initialised = true;
 }
 

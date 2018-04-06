@@ -1,7 +1,7 @@
 {
-  "name": "app-product",
+  "name": "app-shop",
   "version": "0.0.0",
-  "description": "app-product",
+  "description": "app-shop",
   "scripts": {
     "start": "node dist/server/index.js",
     "dev": "nodemon src/server/index.js --exec babel-node",
@@ -27,16 +27,19 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/andreacaldera/template/redux-template"
   },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreacaldera/template/issues"
+  },
+  "homepage": "http://acal-software.com/",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "cookie-parser": "^1.4.3",
-    "cors": "^2.8.4",
     "es6-promise": "^4.1.1",
     "express": "^4.15.4",
     "lodash": "^4.17.4",
@@ -52,7 +55,8 @@
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.0",
     "superagent": "^3.6.0",
-    "url-pattern": "^1.0.3"
+    "url-pattern": "^1.0.3",
+    "winston": "^2.4.1"
   },
   "devDependencies": {
     "arrow-mocha": "^1.0.1",

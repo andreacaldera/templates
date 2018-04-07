@@ -4,13 +4,14 @@ import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { createMemoryHistory, match, RouterContext } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import StaticRouter from 'react-router-dom/StaticRouter';
+import { renderRoutes } from 'react-router-config';
 import UrlPatter from 'url-pattern';
 import _ from 'lodash';
 import cors from 'cors';
 
 import configureStore from '../common/store/configure-store';
+import Products from '../common/components/Products';
 import routes from '../common/routes';
 import { NAMESPACE } from '../common/modules/constants';
 import api from './api';
@@ -79,27 +80,19 @@ app.use((req, res) => {
     return res.json(preloadedState);
   }
 
-  const memoryHistory = createMemoryHistory(req.url);
-  const store = configureStore(memoryHistory, preloadedState);
-  const history = syncHistoryWithStore(memoryHistory, store);
+  const store = configureStore(preloadedState);
 
-  match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      const content = renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
-      const html = req.url.endsWith('?embedded') ? // TODO use url-pattern
-        renderEmbeddedApp(content, store) :
-        renderFullPage(content, store);
-      res.send(html);
-    }
-  });
+  const content = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={{}}>
+        {renderRoutes(routes)}
+      </StaticRouter>
+    </Provider>
+  );
+  const html = req.url.endsWith('?embedded') ? // TODO use url-pattern
+    renderEmbeddedApp(content, store) :
+    renderFullPage(content, store);
+  res.send(html);
 });
 
 app.listen(port, (error) => {

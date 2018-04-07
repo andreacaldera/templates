@@ -1,10 +1,12 @@
-import React from 'react';
-import { Route } from 'react-router';
-
 import App from './components/App';
+import Products from './components/Products';
 
-const routes = (
-  <Route path="*" component={App} />
-);
+const routes = [
+  { component: App,
+    routes: [
+      { path: '*', component: Products },
+    ],
+  },
+];
 
 export default routes;

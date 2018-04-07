@@ -19,6 +19,7 @@ const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port depend
 const appState = {
   initialised: false,
   isActive: false,
+  lazyLoad: false,
 };
 
 const appPattern = new UrlPatter(APP_PATTERN);
@@ -50,8 +51,6 @@ function initialiseApp(state) {
   debug('initialise');
   appState.store = store;
   appState.history = history;
-
-  // appState.history.listen(historyChanged);
 
   appState.initialised = true;
 }
@@ -103,8 +102,8 @@ window.__MICRO_UI__.apps = Object.assign(
   }
 );
 
-if (window[APP_REDUX_STATE_ID]) {
-  initialiseApp(window[APP_REDUX_STATE_ID]);
+if (!appState.lazyLoad || window[APP_REDUX_STATE_ID]) {
+  initialiseApp(window[APP_REDUX_STATE_ID] || {});
 }
 
 mount();

@@ -1,60 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
-import { ADD_TO_BAG, REMOVE_FROM_BAG } from '../modules/constants';
+import { renderRoutes } from 'react-router-config';
 
-import { getProductList, getProductsInBag, getSelectedProductId } from '../modules/selectors';
+import { ROUTE_CHANGED } from '../modules/constants';
 
-class App extends Component {
-  static propTypes = {
-    selectedProductId: PropTypes.string,
-    products: PropTypes.arrayOf(PropTypes.object).isRequired,
-    productsInBag: PropTypes.arrayOf(PropTypes.string).isRequired,
-    addToBag: PropTypes.func.isRequired,
-  };
+const App = ({ route, history, routeChanged }) => {
+  routeChanged(history.location.pathname);
+  return (
+    <div>
+      {renderRoutes(route.routes)}
+    </div>
+  );
+};
 
-  static defaultProps = {
-    selectedProductId: null,
-  };
-
-  render() {
-    const { products, addToBag, productsInBag, selectedProductId } = this.props;
-    return (
-      <div className="container">
-        <h2>Micro UI product application</h2>
-
-        {products.map((product) => (
-          <div className={`form-group row ${selectedProductId === product.id ? 'product--selected' : ''}`} key={product.name}>
-            <label className="col-10" htmlFor="add-to-bag">{product.name}</label>
-            <div className="col-2">
-              <div className="form-check">
-                <input checked={Boolean(productsInBag.find((id) => id === product.id))} id="add-to-bag" className="form-check-input" type="checkbox" onChange={(e) => addToBag(e, product.id)} />Add to bag
-              </div>
-            </div>
-          </div>
-        ))}
-        <Link className="btn btn-primary" to="/checkout" href="/checkout" onClick={addToBag}>Checkout</Link>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  products: getProductList(state),
-  productsInBag: getProductsInBag(state),
-  selectedProductId: getSelectedProductId(state),
-});
+App.propTypes = {
+  route: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
+  routeChanged: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  addToBag: (e, productId) => {
-    dispatch({
-      type: e.target.checked ? ADD_TO_BAG : REMOVE_FROM_BAG,
-      payload: productId,
-      publish: true,
-    });
-  },
+  routeChanged: (pathname) => dispatch({
+    type: ROUTE_CHANGED,
+    payload: pathname,
+  }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(null, mapDispatchToProps)(App);

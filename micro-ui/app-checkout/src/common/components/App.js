@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { ADD_TO_BAG, REMOVE_FROM_BAG } from '../modules/constants';
-
-import { getProductList, getProductsInBag, getSelectedProductId } from '../modules/selectors';
+import { getProductsInBag } from '../modules/selectors';
 
 class App extends Component {
   static propTypes = {
-    selectedProductId: PropTypes.string,
-    products: PropTypes.arrayOf(PropTypes.object).isRequired,
-    productsInBag: PropTypes.arrayOf(PropTypes.string).isRequired,
-    addToBag: PropTypes.func.isRequired,
+    productsInBag: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   static defaultProps = {
@@ -19,28 +14,32 @@ class App extends Component {
   };
 
   render() {
-    const { products, addToBag, productsInBag, selectedProductId } = this.props;
+    const { productsInBag } = this.props;
+
+    const basket = productsInBag.length === 0 ?
+      (
+        <i>Your basket is empty.</i>
+      ) :
+      (
+        <ul>
+          {productsInBag.map((product) => (
+            <li>{product.name}</li>
+          ))}
+        </ul>
+      );
+
     return (
       <div className="container">
         <h2>Micro UI checkout application</h2>
+        <h3>Your basket</h3>
+        {basket}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  products: getProductList(state),
   productsInBag: getProductsInBag(state),
-  selectedProductId: getSelectedProductId(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addToBag: (e, productId) => {
-    dispatch({
-      type: e.target.checked ? ADD_TO_BAG : REMOVE_FROM_BAG,
-      payload: productId,
-    });
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

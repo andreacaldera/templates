@@ -1,1 +1,1 @@
-export const NAMESPACE = 'REDUX_TEMPLATE';
+export const NAMESPACE = 'APP_SHOP';

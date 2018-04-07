@@ -1,18 +1,39 @@
-// import { eventChannel } from 'redux-saga';
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put, select } from 'redux-saga/effects';
 
-function publish(action) {
-  if (action.publish) {
-    window.__MICRO_UI__.publish(action);
-  }
+import { CHECKOUT, ROUTE_CHANGED } from '../common/modules/constants';
+
+import { getProductsInBag } from '../common/modules/selectors';
+
+export function* publishAction() {
+  yield takeEvery('*', (action) => {
+    if (action.publish) {
+      window.__MICRO_UI__.publish(action);
+    }
+  });
 }
 
-export function* watchActions() {
-  yield takeEvery('*', publish);
+export function* publishRouteChange() {
+  yield takeEvery(ROUTE_CHANGED, (action) => {
+    window.__MICRO_UI__.publish({ ...action, publish: true });
+  });
+}
+
+export function* checkout(action) {
+  if (action.publish) {
+    return;
+  }
+  const products = yield select(getProductsInBag);
+  yield put({ type: CHECKOUT, payload: products, publish: true });
+}
+
+export function* watchCheckout() {
+  yield takeEvery(CHECKOUT, checkout);
 }
 
 export default function* rootSaga() {
   yield [
-    watchActions(),
+    publishAction(),
+    watchCheckout(),
+    publishRouteChange(),
   ];
 }

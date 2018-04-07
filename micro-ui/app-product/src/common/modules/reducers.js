@@ -4,7 +4,7 @@ import { routerReducer } from 'react-router-redux';
 
 import { NAMESPACE, ADD_TO_BAG, REMOVE_FROM_BAG } from './constants';
 
-const productsInBag = (state = [], action) => {
+const productIdsInBag = (state = [], action) => {
   switch (action.type) {
     case ADD_TO_BAG:
       return state.concat(action.payload);
@@ -17,7 +17,7 @@ const productsInBag = (state = [], action) => {
 const appReducers = combineReducers({
   products: (state = {}) => state,
   selectedProductId: (state = null) => state,
-  productsInBag,
+  productIdsInBag,
 });
 
 module.exports = combineReducers({ routing: routerReducer, [NAMESPACE]: appReducers });

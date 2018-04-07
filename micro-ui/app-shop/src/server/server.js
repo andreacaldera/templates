@@ -5,8 +5,8 @@ import _ from 'lodash';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { createMemoryHistory, match, RouterContext } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import StaticRouter from 'react-router-dom/StaticRouter';
+import { renderRoutes } from 'react-router-config';
 import UrlPatter from 'url-pattern';
 import superagent from 'superagent';
 
@@ -35,8 +35,10 @@ function renderFullPage(content, appsContent, store) {
     `<script src="http://localhost:${appConfig.port}${appConfig.jsPath}"></script>`
   ).join(' ');
 
-  const appsHtml = appsContent.map((appContent) =>
-    `<div id="${appContent.containerId}">${appContent.html}</div>`
+  const appsHtml = appsContent.map((appContent) => // TODO container ID it's present twice in the dom (here and in html retuened for rendering server-side)
+    `<div id="${appContent.containerId}">
+      ${appContent.html}
+    </div>`
   ).join(' ');
 
   return `
@@ -49,9 +51,10 @@ function renderFullPage(content, appsContent, store) {
       <title>Shop</title>
       </head>
       <body>
-        <div id="app">${content}
-          ${appsHtml}
+        <div id="app">
+          ${content}
         </div>
+        ${appsHtml}
         <script>window.__PARENT_APP_INITIAL_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\x3c')}</script>
         <script src="http://localhost:${port}/dist/app-shop.js"></script>
         ${jsLinks}
@@ -93,24 +96,16 @@ app.use((req, res) => {
   return Promise.all(config.apps.map((appConfig) => loadAppContent(req.url, appConfig)))
     .then((appsContent) => {
       const preloadedState = { [NAMESPACE]: { meta: { activePage } } };
-      const memoryHistory = createMemoryHistory(req.url);
-      const store = configureStore(memoryHistory, preloadedState);
-      const history = syncHistoryWithStore(memoryHistory, store);
+      const store = configureStore(preloadedState);
 
-      match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
-        if (error) {
-          res.status(500).send(error.message);
-        } else if (redirectLocation) {
-          res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-        } else if (renderProps) {
-          const content = renderToString(
-            <Provider store={store}>
-              <RouterContext {...renderProps} />
-            </Provider>
-          );
-          res.send(renderFullPage(content, appsContent, store));
-        }
-      });
+      const content = renderToString(
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={{}}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>
+      );
+      res.send(renderFullPage(content, appsContent, store));
     });
 });
 

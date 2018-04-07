@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { browserHistory, Router } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
 
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import UrlPatter from 'url-pattern'; // TODO check impact of using this on client
 import superagent from 'superagent';
+import { renderRoutes } from 'react-router-config';
 
 import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
@@ -16,7 +16,11 @@ import { APP_CONTAINER_ID, APP_REDUX_STATE_ID, APP_PATTERN, APP_NAME, APP_PORT }
 
 const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port dependency
 
-const appState = {
+window.__MICRO_UI__ = window.__MICRO_UI__ || {
+  publish: () => {},
+};
+
+const appManager = {
   initialised: false,
   isActive: false,
 };
@@ -27,36 +31,28 @@ const domElement = document.getElementById(APP_CONTAINER_ID);
 const debug = (event) =>
    console.log('MICRO UI CLIENT', APP_NAME, event); // eslint-disable-line no-console
 
-const configureApp = (state) => {
-  const store = configureStore(browserHistory, state, true, clientSagas);
-  const history = window.__MICRO_UI__.history || syncHistoryWithStore(browserHistory, store);
-  return {
-    store,
-    history,
-  };
-};
-
 function renderApp() {
-  render(
-    <Provider store={appState.store}>
-      <Router history={appState.history} routes={routes} />
-    </Provider>,
-    domElement
+  const AppRouter = () => (
+    <Provider store={appManager.store}>
+      <BrowserRouter>
+        {renderRoutes(routes)}
+      </BrowserRouter>
+    </Provider>
   );
+  render(<AppRouter />, domElement);
 }
 
 function initialiseApp(state) {
-  const { store, history } = configureApp(state);
+  const store = configureStore(state, true, clientSagas);
   debug('initialise');
-  appState.store = store;
-  appState.history = history;
+  appManager.store = store;
 
-  appState.initialised = true;
+  appManager.initialised = true;
 }
 
 function unmount() {
   debug('unmmount');
-  appState.isActive = false;
+  appManager.isActive = false;
   unmountComponentAtNode(domElement);
 }
 
@@ -69,14 +65,14 @@ function mount(location = window.location.pathname) {
     debug('not mounting: inactive');
     return;
   }
-  if (appState.isActive) {
+  if (appManager.isActive) {
     return;
   }
   debug('mount');
-  appState.isActive = true;
+  appManager.isActive = true;
   return Promise.resolve()
     .then(() => {
-      if (appState.initialised) {
+      if (appManager.initialised) {
         debug('already initialised');
         return renderApp();
       }
@@ -102,6 +98,7 @@ window.__MICRO_UI__.apps = Object.assign(
 );
 
 if (window[APP_REDUX_STATE_ID]) {
+  console.log('first initialise');
   initialiseApp(window[APP_REDUX_STATE_ID]);
 }
 

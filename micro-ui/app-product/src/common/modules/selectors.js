@@ -13,9 +13,14 @@ const getProductList = createSelector(
   ({ products }) => Object.values(products)
 );
 
-const getProductsInBag = createSelector(
+const getProductIdsInBag = createSelector(
   getRootSelector,
-  ({ productsInBag }) => productsInBag
+  ({ productIdsInBag }) => productIdsInBag
+);
+
+const getProductsInBag = createSelector(
+  [getProducts, getProductIdsInBag],
+  (products, productIdsInBag) => Object.values(products).filter(({ id }) => productIdsInBag.includes(id))
 );
 
 const getSelectedProductId = createSelector(
@@ -27,5 +32,6 @@ module.exports = {
   getProducts,
   getProductList,
   getSelectedProductId,
+  getProductIdsInBag,
   getProductsInBag,
 };

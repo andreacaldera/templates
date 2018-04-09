@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import UrlPatter from 'url-pattern'; // TODO check impact of using this on client
-import superagent from 'superagent';
 
 import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
@@ -14,9 +13,9 @@ import clientSagas from './client-sagas';
 
 import { APP_CONTAINER_ID, APP_REDUX_STATE_ID, APP_PATTERN, APP_NAME, APP_PORT } from '../common/constants';
 
-const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port dependency
+// const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port dependency
 
-const appState = {
+const appCheckoutManager = {
   initialised: false,
   isActive: false,
   lazyLoad: false,
@@ -29,6 +28,7 @@ const debug = (event) =>
    console.log('MICRO UI CLIENT', APP_NAME, event); // eslint-disable-line no-console
 
 const configureApp = (state) => {
+  debug('configure');
   const store = configureStore(browserHistory, state, true, clientSagas);
   const history = window.__MICRO_UI__.history || syncHistoryWithStore(browserHistory, store);
   return {
@@ -39,8 +39,8 @@ const configureApp = (state) => {
 
 function renderApp() {
   render(
-    <Provider store={appState.store}>
-      <Router history={appState.history} routes={routes} />
+    <Provider store={appCheckoutManager.store}>
+      <Router history={appCheckoutManager.history} routes={routes} />
     </Provider>,
     domElement
   );
@@ -49,15 +49,15 @@ function renderApp() {
 function initialiseApp(state) {
   const { store, history } = configureApp(state);
   debug('initialise');
-  appState.store = store;
-  appState.history = history;
+  appCheckoutManager.store = store;
+  appCheckoutManager.history = history;
 
-  appState.initialised = true;
+  appCheckoutManager.initialised = true;
 }
 
 function unmount() {
   debug('unmmount');
-  appState.isActive = false;
+  appCheckoutManager.isActive = false;
   unmountComponentAtNode(domElement);
 }
 
@@ -66,27 +66,28 @@ function isActive(location = window.location.pathname) {
 }
 
 function mount(location = window.location.pathname) {
-  if (!isActive()) {
+  if (!isActive(location)) {
     debug('not mounting: inactive');
     return;
   }
-  if (appState.isActive) {
+  if (appCheckoutManager.isActive) {
+    debug('not mounting, already active');
     return;
   }
   debug('mount');
-  appState.isActive = true;
+  appCheckoutManager.isActive = true;
   return Promise.resolve()
     .then(() => {
-      if (appState.initialised) {
+      if (appCheckoutManager.initialised) {
         debug('already initialised');
         return renderApp();
       }
-      superagent(`${basePath}${location}`)
-        .set('Accept', 'application/json')
-        .then(({ body }) => {
-          initialiseApp(body);
-          return renderApp();
-        });
+      // superagent(`${basePath}${location}`)
+      //   .set('Accept', 'application/json')
+      //   .then(({ body }) => {
+      //     initialiseApp(body);
+      //     return renderApp();
+      //   });
     });
 }
 
@@ -102,7 +103,7 @@ window.__MICRO_UI__.apps = Object.assign(
   }
 );
 
-if (!appState.lazyLoad || window[APP_REDUX_STATE_ID]) {
+if (!appCheckoutManager.lazyLoad || window[APP_REDUX_STATE_ID]) {
   initialiseApp(window[APP_REDUX_STATE_ID] || {});
 }
 

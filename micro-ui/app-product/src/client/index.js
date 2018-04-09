@@ -98,7 +98,6 @@ window.__MICRO_UI__.apps = Object.assign(
 );
 
 if (window[APP_REDUX_STATE_ID]) {
-  console.log('first initialise');
   initialiseApp(window[APP_REDUX_STATE_ID]);
 }
 

@@ -19,8 +19,10 @@ function* subsribe() {
   try {
     while (forever) {
       const action = yield take(subscribeHandler);
-      const type = `${NAMESPACE}/${action.type.substring(action.type.indexOf('/') + 1)}`;
-      yield put({ ...action, type, publish: false });
+      if (!action.target || action.target === NAMESPACE) {
+        const type = `${NAMESPACE}/${action.type.substring(action.type.indexOf('/') + 1)}`;
+        yield put({ ...action, type, publish: false });
+      }
     }
   } catch (err) {
     if (yield cancelled()) {

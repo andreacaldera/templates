@@ -1,1 +1,1 @@
-export const NAMESPACE = 'APP_SHOP';
+export const NAMESPACE = 'APP_SHOP_NAMESPACE';

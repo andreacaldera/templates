@@ -4,7 +4,7 @@ import { takeEvery, call, take, put, cancelled } from 'redux-saga/effects';
 import { NAMESPACE } from '../common/modules/constants';
 import { ROUTE_CHANGED } from '../common/modules/meta/constants';
 
-function refreshApps({ payload: pathname }) { // TODO move this to client sagas?
+function refreshApps({ payload: pathname }) {
   Object.keys(window.__MICRO_UI__.apps).forEach((appName) => {
     const app = window.__MICRO_UI__.apps[appName];
     if (app.isActive(pathname)) {
@@ -33,8 +33,10 @@ function* subsribe() {
   try {
     while (forever) {
       const action = yield take(subscribeHandler);
-      const type = `${NAMESPACE}/${action.type.substring(action.type.indexOf('/') + 1)}`;
-      yield put({ ...action, type, publish: false });
+      if (!action.target || action.target === NAMESPACE) {
+        const type = `${NAMESPACE}/${action.type.substring(action.type.indexOf('/') + 1)}`;
+        yield put({ ...action, type, publish: false, target: null });
+      }
     }
   } catch (err) {
     if (yield cancelled()) {

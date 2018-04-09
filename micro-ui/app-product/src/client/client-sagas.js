@@ -4,6 +4,9 @@ import { CHECKOUT, ROUTE_CHANGED } from '../common/modules/constants';
 
 import { getProductsInBag } from '../common/modules/selectors';
 
+const APP_SHOP = 'APP_SHOP_NAMESPACE';
+const APP_CHECKOUT = 'APP_CHECKOUT_NAMESPACE';
+
 export function* publishAction() {
   yield takeEvery('*', (action) => {
     if (action.publish) {
@@ -14,7 +17,7 @@ export function* publishAction() {
 
 export function* publishRouteChange() {
   yield takeEvery(ROUTE_CHANGED, (action) => {
-    window.__MICRO_UI__.publish({ ...action, publish: true });
+    window.__MICRO_UI__.publish({ ...action, publish: true, target: APP_SHOP });
   });
 }
 
@@ -23,7 +26,7 @@ export function* checkout(action) {
     return;
   }
   const products = yield select(getProductsInBag);
-  yield put({ type: CHECKOUT, payload: products, publish: true });
+  yield put({ type: CHECKOUT, payload: products, publish: true, target: APP_CHECKOUT });
 }
 
 export function* watchCheckout() {

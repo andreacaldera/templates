@@ -11,7 +11,7 @@ import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
 import clientSagas from './client-sagas';
 
-import { APP_CONTAINER_ID, APP_REDUX_STATE_ID, APP_PATTERN, APP_NAME, APP_PORT } from '../common/constants';
+import { APP_CONTAINER_ID, APP_REDUX_STATE_ID, APP_PATTERN, APP_NAME } from '../common/constants';
 
 // const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port dependency
 

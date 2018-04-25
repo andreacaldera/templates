@@ -16,5 +16,13 @@ export default ({
       jsPath: '/dist/app-checkout.js',
       urlPathRegex: '/checkout',
     },
+    {
+      name: 'app-footer',
+      containerId: 'app-footer',
+      port: 6001,
+      cssPath: '/dist/app-footer.css',
+      jsPath: '/dist/app-footer.js',
+      urlPathRegex: '/*',
+    },
   ],
 });

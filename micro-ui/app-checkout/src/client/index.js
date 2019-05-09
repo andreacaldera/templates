@@ -11,7 +11,13 @@ import configureStore from '../common/store/configure-store';
 import routes from '../common/routes';
 import clientSagas from './client-sagas';
 
+import microUi from '../../../micro-ui/build/index';
+
 import { APP_CONTAINER_ID, APP_REDUX_STATE_ID, APP_PATTERN, APP_NAME } from '../common/constants';
+
+const domElement = document.getElementById(APP_CONTAINER_ID);
+
+const { debug, unmount } = microUi(APP_NAME, APP_CONTAINER_ID);
 
 // const basePath = `http://localhost:${APP_PORT}`; // TODO remove host:port dependency
 
@@ -22,10 +28,10 @@ const appCheckoutManager = {
 };
 
 const appPattern = new UrlPatter(APP_PATTERN);
-const domElement = document.getElementById(APP_CONTAINER_ID);
 
-const debug = (event) =>
-   console.log('MICRO UI CLIENT', APP_NAME, event); // eslint-disable-line no-console
+
+// const debug = (event) =>
+//    console.log('MICRO UI CLIENT', APP_NAME, event); // eslint-disable-line no-console
 
 const configureApp = (state) => {
   debug('configure');
@@ -53,12 +59,6 @@ function initialiseApp(state) {
   appCheckoutManager.history = history;
 
   appCheckoutManager.initialised = true;
-}
-
-function unmount() {
-  debug('unmmount');
-  appCheckoutManager.isActive = false;
-  unmountComponentAtNode(domElement);
 }
 
 function isActive(location = window.location.pathname) {

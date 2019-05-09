@@ -1,0 +1,6 @@
+{
+  "main.js": "/public/bundle.js",
+  "commons~main.js": "/public/vendors.bundle.js",
+  "commons~main.css": "/public/commons~main.css",
+  "main.css": "/public/main.css"
+}

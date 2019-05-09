@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "createTests.customLocationForTestFiles": "test/unit",
+  "createTests.defaultLocationForTestFiles": "project root",
+  "createTests.testDirectoryName": "test",
+  "createTests.testFilesSuffix": "spec"
+}

@@ -1,0 +1,23 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+  ipanda:
+    build: .
+    environment:
+      - ENV_NAME=local
+      - NODE_ENV=production
+      - PORT=8080
+      - BASE_URL=http://ipanda:8080
+      - LOG_LEVEL=debug
+      - VIRTUAL_HOST=dev.ipanda.co,www.dev.ipanda.co
+      - VIRTUAL_PORT=8080
+      - MONGO_HOSTS=mongo
+    ports:
+      - '8080:8080'
+    links:
+      - mongo
+    depends_on:
+      - mongo

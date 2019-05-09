@@ -99,6 +99,6 @@ app.listen(port, (error) => {
   if (error) {
     console.error(error); // eslint-disable-line no-console
   } else {
-    console.info(`Child one app: http://localhost:${port}/`); // eslint-disable-line no-console
+    console.info(`app-product: http://localhost:${port}/`); // eslint-disable-line no-console
   }
 });

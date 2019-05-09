@@ -1,0 +1,11 @@
+{
+  "PORT": 8080,
+  "logLevel": "debug",
+  "baseUrl": "http://localhost:8080/",
+  "baseApiUrl": "http://localhost:8888/api/",
+  "isDev": true,
+  "mongo": {
+    "retryTimeout": 5000,
+    "hosts": "localhost:27017"
+  }
+}

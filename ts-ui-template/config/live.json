@@ -1,0 +1,14 @@
+{
+  "baseUrl": "https://ipanda.co",
+  "logLevel": "info",
+  "baseApiUrl": "http://api.dev.ipanda.co/api/",
+  "mongo": {
+    "retryTimeout": 60000,
+    "hosts": "ipanda-dev-shard-00-00-zm4pk.mongodb.net:27017,ipanda-dev-shard-00-01-zm4pk.mongodb.net:27017,ipanda-dev-shard-00-02-zm4pk.mongodb.net:27017",
+    "replicaSet": "ipanda-dev-shard-0",
+    "user": "aceo",
+    "password": "zFJ6ucRdwTv",
+    "authSource": "admin",
+    "ssl": "true"
+  }
+}

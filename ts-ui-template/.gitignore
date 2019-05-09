@@ -1,0 +1,38 @@
+# OS Specific
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directories
+lib-cov/
+coverage/
+
+# Dependency directories
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules/
+.idea
+.npmrc
+
+# We're using Yarn, not NPM:
+package-lock.json
+
+# bundled files
+dist/
+
+# Webpack statistics
+stats.json
+
+# Visual Studio Code
+.env
+.favorites.json
+
+# Temporary and cache files
+tmp/
+public/sass/.sass-cache/

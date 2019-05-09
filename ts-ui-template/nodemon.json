@@ -1,0 +1,9 @@
+{
+  "ignore": [".git/", "node_modules/", "cache/", "tmp/"],
+  "verbose": true,
+  "execMap": {
+    "js": "node"
+  },
+  "watch": ["src/server/", "package.json", "tsconfig.json", "webpack.*.js"],
+  "ext": "js json ts tsx"
+}

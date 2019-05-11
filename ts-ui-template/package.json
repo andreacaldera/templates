@@ -1,5 +1,5 @@
 {
-  "name": "ipanda",
+  "name": "template-name",
   "version": "1.0.0",
   "private": true,
   "engines": {
@@ -20,23 +20,13 @@
     "test:watch": "yarn test --watch",
     "test:types": "tsc --noEmit",
     "test:coverage": "yarn test --coverage",
-    "schema": "typescript-json-schema --strictNullChecks --required",
-    "t:sw": "yarn test --watch --silent --verbose",
     "lint": "tslint --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
     "lint:fix": "tslint --fix --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
     "format": "prettier --write '{src,test}/**/*.{js,ts,tsx,json,css,md}'",
     "stats": "webpack --profile --json --config=webpack.production.config.js > stats.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/aceo/instashop.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/aceo/instashop/issues"
-  },
-  "homepage": "https://gitlab.com/aceo/instashop",
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",

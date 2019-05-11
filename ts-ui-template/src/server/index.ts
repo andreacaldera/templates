@@ -4,8 +4,6 @@ import webpackConfig from '../../webpack.config'
 import { setErrorHandlers } from './errorHandlers'
 import { createRouter } from './routes'
 import { AddressInfo } from 'net'
-import { createAuthenticationMiddleware } from './middleware/authentication'
-import { mongoStore } from './db/mongoStore'
 import { Config } from './infra/config'
 import { logger } from './infra/logger'
 const path = require('path')
@@ -41,8 +39,6 @@ export function createAndConfigureApp({ config }: AppContext): App {
   return { app, startApp }
 
   async function startApp() {
-    const mongo = await mongoStore(config.mongo)
-
     app.use('/', express.static(path.resolve('public')))
     app.use(webpackConfig.output.publicPath, express.static(webpackConfig.output.path))
 
@@ -51,12 +47,10 @@ export function createAndConfigureApp({ config }: AppContext): App {
       createRouter({
         config,
         isCsrfEnabled: true,
-        mongo,
       }),
     )
 
     app.use(bodyParser.json())
-    app.use(createAuthenticationMiddleware({ config }))
 
     setErrorHandlers({ app })
 

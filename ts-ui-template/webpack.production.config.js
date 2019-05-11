@@ -26,8 +26,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{ from: 'src/assets/*', to: '../' }], {}),
     new MiniCssExtractPlugin({
-      filename: 'ipanda.[name].css',
-      chunkFilename: 'ipanda.[chunkhash].css',
+      filename: 'TEMPLATE_NAME.[name].css',
+      chunkFilename: 'TEMPLATE_NAME.[chunkhash].css',
     }),
   ],
   optimization: {

@@ -20,7 +20,7 @@ export function createHistoryMiddleware(history: History): Middleware {
   }
 }
 
-export function createPrivateMiddleware(): Middleware {
+export function createPrivacyMiddleware(): Middleware {
   return (store) => {
     return (next) => async (action: Action) => {
       next(action)

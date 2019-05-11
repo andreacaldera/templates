@@ -1,6 +1,3 @@
 {
-  "port": 8080,
-  "mongo": {
-    "database": "ipanda"
-  }
+  "port": 8080
 }

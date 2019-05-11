@@ -10,13 +10,13 @@ declare module '*.png' {
 
 declare type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> }
 
-declare namespace __Ipanda {
+declare namespace __TEMPLATE_NAME {
   interface Window {
     __initialState__: any // TODO type for state
     _paq?: Array<[string, ...(string | number)[]]>
   }
 }
 
-interface Window extends __Ipanda.Window {}
+interface Window extends __TEMPLATE_NAME.Window {}
 
 declare var window: Window

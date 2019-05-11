@@ -1,12 +1,11 @@
 import { createStore, compose, applyMiddleware, Middleware } from 'redux'
 import createLogger, { LoggerPredicate } from 'redux-logger'
 import { path } from 'ramda'
-import { createHistoryMiddleware, createPrivateMiddleware } from '../modules/middleware'
+import { createHistoryMiddleware, createPrivacyMiddleware } from '../modules/middleware'
 import { reducer } from '../modules'
 import { State } from '../modules/state'
 import { History } from 'history'
 import { alertMiddleware } from '../modules/alert/alertMiddleware'
-import { instagramMiddleware } from '../modules/instagram/instagramMiddleware'
 
 const FILTER_LOGGED_ACTION = ['ACTION TO FILTER HERE']
 
@@ -18,8 +17,7 @@ const configureStore = (state: DeepPartial<State>, history: History) => {
 
   const middlewares = [
     createHistoryMiddleware(history),
-    createPrivateMiddleware(),
-    instagramMiddleware,
+    createPrivacyMiddleware(),
     alertMiddleware,
     logger,
   ].filter(Boolean)
